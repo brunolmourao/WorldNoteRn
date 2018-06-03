@@ -1,21 +1,27 @@
 import React from 'react'
 import { StyleSheet, Platform, Image, Text, View,Button,TextInput } from 'react-native'
 import firebase from 'react-native-firebase'
-export default class CreateNote extends React.Component {  
-  state = { currentUser: null,title: '',note: '',date: '', errorMessage: null }
+export default class CreateNote extends React.Component { 
+  constructor(props){
+    super(props);
+    this.state = { currentUser: null,title: "",note: "",date: "", errorMessage: null };
+  } 
   componentDidMount() {
     const { currentUser } = firebase.auth()
     this.setState({ currentUser })
     }
-  onClickAddNote(){
-      firebase.database().ref('testenota').set({
-        titulo: this.state.title,
-        conteudo: this.state.note,
-        data: this.state.date,
-        user: currentUser.email,
+  onClickAddNote =() =>{
+      firebase.database().ref('testenota').push({
+        title: this.state.title,
+        content: this.state.note,
+        date: this.state.date,
+        user: this.state.currentUser.email,
       }
-    ).then(() => this.props.navigation.navigate('Main'))
-    .catch(error => this.setState({ errorMessage: error.message }))
+    )
+    this.props.navigation.navigate('Main');
+  }
+  startPlacePicker(){
+    
   }
 render() {
 return (
@@ -29,7 +35,7 @@ return (
         <TextInput
             style={styles.textInput}
             autoCapitalize="none"
-            placeholder="Titulo"
+            placeholder="Insira o titulo da nota"
             onChangeText={title => this.setState({ title })}
             value={this.state.title}
         />
@@ -39,7 +45,7 @@ return (
         <TextInput
             style={styles.textInput}
             autoCapitalize="none"
-            placeholder="Nota"
+            placeholder="Insira o conteudo da nota"
             onChangeText={note => this.setState({ note })}
             value={this.state.note}
         />
@@ -49,10 +55,17 @@ return (
         <TextInput
             style={styles.textInput}
             autoCapitalize="none"
-            placeholder="Data"
+            placeholder="Insira a Data da nota"
             onChangeText={date => this.setState({ date })}
             value={this.state.date}
         />
+        <Text>
+          Local:
+        </Text>
+        <Button
+          title = "Escolher Local"
+          onPress = {this.startPlacePicker}
+        />  
         <Button
           title = "Adicionar Nota"
           onPress = {this.onClickAddNote}
