@@ -9,7 +9,10 @@ export default class Main extends React.Component {
     const { currentUser } = firebase.auth()
     this.setState({ currentUser })
 }
-  onClickAddNote(){}
+  onClickAddNote = () => {
+      //alert('Button clicked');
+      this.props.navigation.navigate('CreateNote');
+  }
   onClickLogOff(){
     firebase.auth().signOut()
     .then(() => this.props.navigation.navigate('Loading'))
