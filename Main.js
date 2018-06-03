@@ -1,14 +1,20 @@
 // Main.js
 
 import React from 'react'
-import { StyleSheet, Platform, Image, Text, View } from 'react-native'
+import { StyleSheet, Platform, Image, Text, View,Button } from 'react-native'
 import firebase from 'react-native-firebase'
 export default class Main extends React.Component {
   state = { currentUser: null }
   componentDidMount() {
     const { currentUser } = firebase.auth()
     this.setState({ currentUser })
-}  
+}
+  onClickAddNote(){}
+  onClickLogOff(){
+    firebase.auth().signOut()
+    .then(() => this.props.navigation.navigate('Loading'))
+    .catch(error => this.setState({ errorMessage: error.message }))
+  }  
 render() {
     const { currentUser } = this.state
 
@@ -17,6 +23,14 @@ return (
         <Text>
           Hi {currentUser && currentUser.email}!
         </Text>
+        <Button
+          title = "Adicionar Nota"
+          onPress = {this.onClickAddNote}
+        />
+        <Button
+          title = "LogOff"
+          onPress = {this.onClickLogOff}
+        />
       </View>
     )
   }

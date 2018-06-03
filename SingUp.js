@@ -1,5 +1,3 @@
-// SignUp.js
-
 import React from 'react'
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
 import firebase from 'react-native-firebase'
@@ -12,6 +10,10 @@ handleSignUp = () => {
     .then(() => this.props.navigation.navigate('Main'))
     .catch(error => this.setState({ errorMessage: error.message }))
   console.log('handleSignUp')
+}
+handleClick = () =>{
+    //alert('Button clicked');
+    this.props.navigation.navigate('Login');
 }
 
 render() {
@@ -39,8 +41,8 @@ render() {
         />
         <Button title="Sign Up" onPress={this.handleSignUp} />
         <Button
-          title="Already have an account? Login"
-          onPress={() => this.props.navigation.navigate('Login')}
+          title="Already have an account?"
+          onPress={this.handleClick}
         />
       </View>
     )
