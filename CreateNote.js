@@ -4,24 +4,25 @@ import firebase from 'react-native-firebase'
 export default class CreateNote extends React.Component { 
   constructor(props){
     super(props);
-    this.state = { currentUser: null,title: "",note: "",date: "", errorMessage: null };
+    this.state = { currentUser: null,title: "",note: "",date: "",location: "", errorMessage: null };
   } 
   componentDidMount() {
     const { currentUser } = firebase.auth()
     this.setState({ currentUser })
     }
   onClickAddNote =() =>{
-      firebase.database().ref('testenota').push({
+      firebase.database().ref('notes').push({
         title: this.state.title,
         content: this.state.note,
         date: this.state.date,
-        user: this.state.currentUser.email,
+        location: this.state.location,
+        author: this.state.currentUser.email,
       }
     )
     this.props.navigation.navigate('Main');
   }
-  startPlacePicker(){
-    
+  startPlacePicker = () =>{
+    this.props.navigation.navigate('PlacePicker');
   }
 render() {
 return (
@@ -59,13 +60,13 @@ return (
             onChangeText={date => this.setState({ date })}
             value={this.state.date}
         />
-        <Text>
-          Local:
-        </Text>
-        <Button
-          title = "Escolher Local"
-          onPress = {this.startPlacePicker}
-        />  
+        <TextInput
+            style={styles.textInput}
+            autoCapitalize="none"
+            placeholder="Insira o Lugar"
+            onChangeText={location => this.setState({ location })}
+            value={this.state.location}
+        />
         <Button
           title = "Adicionar Nota"
           onPress = {this.onClickAddNote}
