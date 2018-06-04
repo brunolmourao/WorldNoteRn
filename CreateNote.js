@@ -60,6 +60,9 @@ return (
             onChangeText={date => this.setState({ date })}
             value={this.state.date}
         />
+        <Text>
+          Insira o local da Nota:
+        </Text>  
         <TextInput
             style={styles.textInput}
             autoCapitalize="none"
