@@ -12,7 +12,7 @@ var styles = StyleSheet.create({
   listItem: {
     borderBottomColor: '#eee',
     borderColor: 'gray',
-    //flexDirection:'row',
+    flexDirection:'column',
     //alignItems:'center',
     borderWidth: 1,
     padding:20

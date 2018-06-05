@@ -1,15 +1,19 @@
 import React from 'react'
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
+import { StyleSheet, Text, TextInput, View, Button,TouchableHighlight,Image } from 'react-native'
 import firebase from 'react-native-firebase'
 
 export default class SignUp extends React.Component {
-  state = { email: '', password: '', errorMessage: null }
+  state = { email: '', password: '',checkpassword: '' ,errorMessage: null }
 
 handleSignUp = () => {
+  if(this.state.password == this.state.checkpassword){
     firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
     .then(() => this.props.navigation.navigate('Main'))
     .catch(error => this.setState({ errorMessage: error.message }))
   console.log('handleSignUp')
+  }else{
+    alert('Senhas não conferem');
+  }
 }
 handleClick = () =>{
     //alert('Button clicked');
@@ -19,7 +23,13 @@ handleClick = () =>{
 render() {
     return (
       <View style={styles.container}>
-        <Text>Sign Up</Text>
+        <TouchableHighlight onPress={this.props.onTaskCompletion}>
+            <Image
+            style={{width: 50, height: 50}}
+            source={require('.//res//img_102074.png')}
+           />
+          </TouchableHighlight>
+        <Text>Criar Conta</Text>
         {this.state.errorMessage &&
           <Text style={{ color: 'red' }}>
             {this.state.errorMessage}
@@ -39,9 +49,17 @@ render() {
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
         />
-        <Button title="Sign Up" onPress={this.handleSignUp} />
+        <TextInput
+          secureTextEntry
+          placeholder="Password"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={checkpassword => this.setState({ checkpassword })}
+          value={this.state.checkpassword}
+        />
+        <Button title="Criar Conta" onPress={this.handleSignUp} />
         <Button
-          title="Already have an account?"
+          title="Já possui uma conta?"
           onPress={this.handleClick}
         />
       </View>

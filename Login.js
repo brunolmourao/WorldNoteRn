@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
+import { StyleSheet, Text, TextInput, View, Button,Image,TouchableHighlight } from 'react-native'
 import firebase from 'react-native-firebase'
 export default class Login extends React.Component {
   state = { email: '', password: '', errorMessage: null }
@@ -13,7 +13,13 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.container}> 
+        <TouchableHighlight>
+            <Image
+            style={styles.button}
+            source={require('.//res//images.png')}
+           />
+          </TouchableHighlight>
         <Text>Login</Text>
         {this.state.errorMessage &&
           <Text style={{ color: 'red' }}>
@@ -36,7 +42,7 @@ export default class Login extends React.Component {
         />
         <Button title="Login" onPress={this.handleLogin} />
         <Button
-          title="Don't have an account? Sign Up"
+          title="Não tem conta? Criar Conta"
           onPress={() => this.props.navigation.navigate('SignUp')}
         />
       </View>

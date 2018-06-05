@@ -8,6 +8,7 @@ import SignUp from './/SingUp'
 import Login from './/Login'
 import Main from './/Main'
 import CreateNote from './/CreateNote'
+import EditNote from './/EditNote'
 import PlacePicker from './/PlacePicker'
 
 // create our app's navigation stack
@@ -18,6 +19,7 @@ const App = SwitchNavigator(
     Login,
     CreateNote,
     PlacePicker,
+    EditNote,
     Main
   },
   {
